@@ -15,6 +15,7 @@ def main():
     kk_img = pg.transform.flip(kk_img, True, False)
     kk_rct = kk_img.get_rect()
     kk_rct.center = 300, 200
+
     tmr = 0
     while True:
         for event in pg.event.get():
@@ -22,18 +23,20 @@ def main():
                 return
 
         x = tmr % 3200
+        kk_x = 0
+        kk_y = 0
         key_lst = pg.key.get_pressed()
         if key_lst[pg.K_UP] or key_lst[pg.K_LEFT]:
-            kk_rct.move_ip((0, -1))
+            kk_y = -1
         if key_lst[pg.K_DOWN] or key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip((0, +1))
+            kk_y = +1
         if key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip((+3, 0))
+            kk_x = +3
         screen.blit(bg_img, [-x, 0])
         screen.blit(bg_img2, [-x + 1600, 0])
         screen.blit(bg_img, [-x + 3200, 0])
         screen.blit(kk_img, kk_rct)
-        kk_rct.move_ip((-1, 0))
+        kk_rct.move_ip((kk_x, kk_y))
         pg.display.update()
         tmr += 1
         clock.tick(200)
