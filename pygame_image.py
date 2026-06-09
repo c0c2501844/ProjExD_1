@@ -10,25 +10,25 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg")
-    kk_img = pg.image.load("fig/3.png")
-    kk_img = pg.transform.flip(kk_img, True, False)
-    bg_x = 0
-    bg_width = bg_img.get_width()
-    scroll_speed = 5
+    kk_img = pg.image.load("fig/3.png")  # 練習3：こうかとんSurfaceの作成
+    kk_img = pg.transform.flip(kk_img, True, False)  # 練習3：こうかとんの左右反転
+    tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
 
-        bg_x -= scroll_speed
-        if bg_x <= 0:
-            bg_x = bg_width
+        x = tmr
+        if x >= 1600:
+            x = 0
+            tmr = 0
 
-        screen.blit(bg_img, (bg_x, 0))
-        screen.blit(bg_img, (bg_x - bg_width, 0))
-        screen.blit(kk_img, [300, 200])
+        screen.blit(bg_img, [-x, 0])  # 練習5：背景画像を右から左へ
+        screen.blit(bg_img, [-x + 1600, 0])  # 練習5：背景画像を右から左へ
+        screen.blit(kk_img, [300, 200])  # 練習4：こうかとんSurfaceの描画
         pg.display.update()
-        clock.tick(200)
+        tmr += 1
+        clock.tick(2000)
 
 
 if __name__ == "__main__":
